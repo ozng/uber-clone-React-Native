@@ -1,3 +1,4 @@
+import { Icon } from "@rneui/base";
 import {
   StyleSheet,
   Text,
@@ -39,6 +40,12 @@ const NavOptions = () => {
               style={{ width: 120, height: 120, resizeMode: "contain" }}
             />
             <Text style={tw`mt-2 text-lg font-semibold`}>{item.title}</Text>
+            <Icon
+              style={tw`p-2 bg-black rounded-full w-10 mt-4`}
+              type="antdesign"
+              name="arrowright"
+              color="white"
+            />
           </View>
         </TouchableOpacity>
       )}
