@@ -1,15 +1,18 @@
-import { StyleSheet, StatusBar, View } from "react-native";
+import { StyleSheet, StatusBar } from "react-native";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
-import HomeScreen from "./screens/HomeScreen";
+import { NavigationContainer } from "@react-navigation/native";
+import HomeStack from "./navigation/HomeStack";
 
 export default function App() {
   return (
     <Provider store={store}>
-      <SafeAreaProvider>
-        <HomeScreen />
-      </SafeAreaProvider>
+      <NavigationContainer>
+        <SafeAreaProvider>
+          <HomeStack />
+        </SafeAreaProvider>
+      </NavigationContainer>
     </Provider>
   );
 }
