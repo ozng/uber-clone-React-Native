@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import { Icon } from "@rneui/base";
 import {
   StyleSheet,
@@ -25,6 +26,8 @@ const data = [
 ];
 
 const NavOptions = () => {
+  const navigation = useNavigation();
+
   return (
     <FlatList
       data={data}
@@ -33,6 +36,7 @@ const NavOptions = () => {
         <TouchableOpacity
           activeOpacity={0.65}
           style={tw`p-2 pl-6 pb-8 pt-4 bg-gray-200 m-2 w-40`}
+          onPress={() => navigation.navigate(item.screen)}
         >
           <View>
             <Image

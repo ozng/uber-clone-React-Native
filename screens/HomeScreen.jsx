@@ -1,8 +1,14 @@
-import { StyleSheet, Image, View } from "react-native";
+import { Image, View } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import NavOptions from "../components/NavOptions";
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import { GOOGLE_API_KEY } from "@env";
+import { useDispatch } from "react-redux";
+import { setDestination, setOrigin } from "../store/slices/navSlice";
 
 const HomeScreen = () => {
+  const dispatch = useDispatch();
+
   return (
     <View style={tw`bg-white h-full`}>
       <View style={tw`p-5`}>
@@ -14,6 +20,35 @@ const HomeScreen = () => {
           }}
           source={{ uri: "https://links.papareact.com/gzs" }}
         />
+        <GooglePlacesAutocomplete
+          nearbyPlacesAPI="GooglePlacesSearch"
+          debounce={400}
+          placeholder="Where from?"
+          styles={{
+            container: {
+              flex: 0,
+            },
+            textInput: {
+              fontSize: 18,
+            },
+          }}
+          minLength={2}
+          enablePoweredByContainer={false}
+          onPress={(data, details = null) => {
+            dispatch(
+              setOrigin({
+                location: details.geometry.location,
+                description: data.description,
+              })
+            );
+            dispatch(setDestination(null));
+          }}
+          fetchDetails={true}
+          query={{
+            key: GOOGLE_API_KEY,
+            language: "en",
+          }}
+        />
         <NavOptions />
       </View>
     </View>
@@ -21,5 +56,3 @@ const HomeScreen = () => {
 };
 
 export default HomeScreen;
-
-const styles = StyleSheet.create({});
