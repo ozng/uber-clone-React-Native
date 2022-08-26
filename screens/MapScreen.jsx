@@ -1,6 +1,7 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import tw from "tailwind-react-native-classnames";
 import Map from "../components/Map";
+import MapStack from "../navigation/MapStack";
 
 const MapScreen = () => {
   return (
@@ -8,7 +9,9 @@ const MapScreen = () => {
       <View style={tw`h-1/2`}>
         <Map />
       </View>
-      <View style={tw`h-1/2`}></View>
+      <View style={tw`h-1/2`}>
+        <MapStack />
+      </View>
     </View>
   );
 };
