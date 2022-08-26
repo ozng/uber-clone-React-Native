@@ -11,17 +11,24 @@ const Map = () => {
   const destination = useSelector(selectDestination);
   const mapRef = useRef(null);
 
+  const zoomToMarkers = () => {
+    const zoomTimer = setInterval(() => {
+      mapRef.current.fitToSuppliedMarkers(["origin", "destination"], {
+        edgePadding: { top: 100, right: 100, bottom: 100, left: 100 },
+      });
+      clearInterval(zoomTimer);
+    }, 512);
+  };
+
+  useEffect(() => {
+    zoomToMarkers();
+  }, [origin, destination]);
+
   return (
     <MapView
       ref={mapRef}
       style={tw`flex-1`}
       mapType="mutedStandard"
-      onMapReady={() => {
-        mapRef.current.fitToSuppliedMarkers(["destination", "origin"], {
-          animated: true,
-          edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
-        });
-      }}
       initialRegion={{
         latitude: origin?.location.lat,
         longitude: origin?.location.lng,
