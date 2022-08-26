@@ -1,15 +1,27 @@
 import MapView, { Marker } from "react-native-maps";
 import { useSelector } from "react-redux";
 import tw from "tailwind-react-native-classnames";
-import { selectOrigin } from "../store/slices/navSlice";
+import { selectDestination, selectOrigin } from "../store/slices/navSlice";
+import MapViewDirections from "react-native-maps-directions";
+import { GOOGLE_API_KEY } from "@env";
+import { useEffect, useRef } from "react";
 
 const Map = () => {
   const origin = useSelector(selectOrigin);
+  const destination = useSelector(selectDestination);
+  const mapRef = useRef(null);
 
   return (
     <MapView
+      ref={mapRef}
       style={tw`flex-1`}
       mapType="mutedStandard"
+      onMapReady={() => {
+        mapRef.current.fitToSuppliedMarkers(["destination", "origin"], {
+          animated: true,
+          edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
+        });
+      }}
       initialRegion={{
         latitude: origin?.location.lat,
         longitude: origin?.location.lng,
@@ -17,15 +29,37 @@ const Map = () => {
         longitudeDelta: 0.005,
       }}
     >
-      <Marker
-        coordinate={{
-          latitude: origin?.location.lat,
-          longitude: origin?.location.lng,
-        }}
-        title="Origin"
-        description={origin?.description}
-        identifier="origin"
-      />
+      {origin && destination && (
+        <MapViewDirections
+          origin={origin.description}
+          destination={destination.description}
+          apikey={GOOGLE_API_KEY}
+          strokeWidth={3}
+          strokeColor="black"
+        />
+      )}
+      {origin?.location && (
+        <Marker
+          coordinate={{
+            latitude: origin?.location.lat,
+            longitude: origin?.location.lng,
+          }}
+          title="Origin"
+          description={origin?.description}
+          identifier="origin"
+        />
+      )}
+      {destination?.location && (
+        <Marker
+          coordinate={{
+            latitude: destination?.location.lat,
+            longitude: destination?.location.lng,
+          }}
+          title="Destination"
+          description={destination?.description}
+          identifier="destination"
+        />
+      )}
     </MapView>
   );
 };
