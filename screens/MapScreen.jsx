@@ -5,8 +5,6 @@ import Map from "../components/Map";
 const MapScreen = () => {
   return (
     <View>
-      <Text>MapScreen</Text>
-
       <View style={tw`h-1/2`}>
         <Map />
       </View>
