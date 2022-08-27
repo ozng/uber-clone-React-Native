@@ -5,6 +5,7 @@ import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplet
 import { GOOGLE_API_KEY } from "@env";
 import { useDispatch } from "react-redux";
 import { setDestination } from "../store/slices/navSlice";
+import NavFavourites from "./NavFavourites";
 
 const NavigateCard = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -50,6 +51,7 @@ const NavigateCard = ({ navigation }) => {
             }}
           />
         </View>
+        <NavFavourites />
       </View>
     </View>
   );
