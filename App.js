@@ -4,6 +4,8 @@ import { Provider } from "react-redux";
 import { store } from "./store/store";
 import { NavigationContainer } from "@react-navigation/native";
 import HomeStack from "./navigation/HomeStack";
+import "intl";
+import "intl/locale-data/jsonp/en";
 
 export default function App() {
   return (
