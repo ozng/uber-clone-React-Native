@@ -19,7 +19,7 @@ const Map = () => {
   const zoomToMarkers = () => {
     const zoomTimer = setInterval(() => {
       mapRef.current.fitToSuppliedMarkers(["origin", "destination"], {
-        edgePadding: { top: 100, right: 100, bottom: 100, left: 100 },
+        edgePadding: { top: 200, right: 100, bottom: 100, left: 200 },
       });
       clearInterval(zoomTimer);
     }, 512);
